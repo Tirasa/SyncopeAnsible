@@ -1,0 +1,4 @@
+AnsibleSyncopeCollection
+===============
+
+Ansible Syncope Collection
