@@ -3,13 +3,13 @@ name: "syncope"
 version: "1.0.0"
 readme: "README.md"
 authors:
-    - "Matteo Alessandroni"
+  - "Matteo Alessandroni"
 dependencies:
 license:
-    - "MIT"
+  - "MIT"
 tags:
-    - syncope
-repository: "https://www.github.com/my_org/my_collection"
-documentation: "http://my-docs.example.com"
-homepage: "http://www.example.com"
-issues: "https://www.github.com/my_org/my_collection/issues"
+  - syncope
+repository: "https://github.com/Tirasa/SyncopeAnsible"
+documentation: ""
+homepage: "https://github.com/Tirasa/SyncopeAnsible"
+issues: "https://github.com/Tirasa/SyncopeAnsible/issues"

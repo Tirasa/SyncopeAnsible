@@ -2,12 +2,21 @@
 
 ## Test module logic
 
-1. First make sure to edit the file `plugins/modules/syncope_change_user_status/args.json` 
+1. First make sure to edit the file `./plugins/modules/syncope_change_user_status/args.json` 
 according to your needs.
 
-1. Test the module logic by running:
+1. Test the module logic by running one the following 2 options, from the 
+   `./plugins/modules/syncope_change_user_status`:
     ```sh
-    python -m changeUserStatus args.json
+    python -m syncope_change_user_status args.json
+    ```
+    > `-m [MODULE_NAME]`:
+    >
+    > the name of the module must be equals to the name 
+    > of the `plugins/modules/syncope_change_user_status` folder 
+ 
+    ```sh
+    ansible-playbook -M . ./playbook_conf.yml
     ```
  
 1. Install [Mazer CLI](https://galaxy.ansible.com/docs/mazer/install.html#latest-stable-release)
