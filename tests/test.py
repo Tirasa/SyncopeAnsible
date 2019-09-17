@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # Copyright (C) 2019 Tirasa (info@tirasa.net)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,18 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-namespace: "tirasa"
-name: "syncope"
-version: "1.0.0"
-readme: "README.md"
-authors:
-  - "Matteo Alessandroni"
-dependencies:
-license:
-  - "Apache License, version 2.0"
-tags:
-  - syncope
-repository: "https://github.com/Tirasa/SyncopeAnsible"
-documentation: ""
-homepage: "https://github.com/Tirasa/SyncopeAnsible"
-issues: "https://github.com/Tirasa/SyncopeAnsible/issues"
+import ansible.compat.tests.mock

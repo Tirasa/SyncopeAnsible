@@ -132,7 +132,7 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.basic import *
 from ansible.module_utils.urls import *
 
-def callApi(module):
+def execute_rest_call(module):
     server_name = module.params['serverName']
     api_endpoint = "/syncope/rest/users/" + module.params['syncopeUser'] + "/status"
     url = server_name + api_endpoint
@@ -152,13 +152,18 @@ def callApi(module):
 
     user = module.params['adminUser'] or 'admin'
     pwd = module.params['adminPwd'] or 'password'
-    resp = open_url(url, method="POST", headers=headers, url_username=user,
-        url_password=pwd, force_basic_auth=True, data=json.dumps(payload))
 
-    resp_json = json.loads(resp.read())
+    resp_json = {}
+    try:
+        resp = open_url(url, method="POST", headers=headers, url_username=user,
+            url_password=pwd, force_basic_auth=True, data=json.dumps(payload))
+        resp_json = json.loads(resp.read())
 
-    if resp_json is None or resp.status != 200:
-        module.fail_json(msg="Error while changing status")
+        if resp_json is None or resp is None or resp.getcode() != 200:
+            module.fail_json(msg="Error while changing status")
+    except Exception as e:
+        res = json.load(e)
+        module.fail_json(msg=res)
 
     return resp_json
 
@@ -195,7 +200,7 @@ def run_module():
     if module.check_mode:
         module.exit_json(**result)
 
-    result['message'] = callApi(module)
+    result['message'] = execute_rest_call(module)
 
     # during the execution of the module, if there is an exception or a
     # conditional state that effectively causes a failure, run
