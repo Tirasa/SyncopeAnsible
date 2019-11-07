@@ -2,8 +2,9 @@
 
 ## Test module logic
 
-1. First make sure to edit the file `./plugins/modules/syncope_change_user_status/args.json` 
-according to your needs.
+1. First make sure to edit in a proper way the following conf files:
+   - `./plugins/modules/syncope_change_user_status/args.json`
+   - `./plugins/modules/syncope_change_user_status/playbook_conf.yml` 
 
 1. Test the module logic by running one the following 2 options:
     1. from the `./plugins/modules/syncope_change_user_status`:
