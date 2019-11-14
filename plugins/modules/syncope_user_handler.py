@@ -62,6 +62,9 @@ extends_documentation_fragment:
 authors:
     - Matteo Alessandroni (@mat-ale)
     - Federico Palmitesta (@FedericoPalmitesta)
+    - Marco Di Sabatino Di Diodoro (@mdisabatino)
+    - Francesco Chicchiriccò (@ilgrosso)
+
 '''
 
 EXAMPLES = '''

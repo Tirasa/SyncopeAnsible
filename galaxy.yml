@@ -19,9 +19,11 @@ readme: "README.md"
 authors:
   - "Matteo Alessandroni"
   - "Federico Palmitesta"
+  - "Marco Di Sabatino Di Diodoro"
+  - "Francesco Chicchiriccò"
 dependencies:
 license:
-  - "Apache License, version 2.0"
+  - "Apache-2.0"
 tags:
   - syncope
 repository: "https://github.com/Tirasa/SyncopeAnsible"
