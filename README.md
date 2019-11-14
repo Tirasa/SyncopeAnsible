@@ -1,34 +1,40 @@
-# Ansible Syncope Collection
+  # README.md
 
-## Test module logic
+  # Ansible Syncope Collection
 
-1. First make sure to edit in a proper way the following conf files:
-   - `./plugins/modules/syncope_change_user_status/args.json`
-   - `./plugins/modules/syncope_change_user_status/playbook_conf.yml` 
+  ## Test module logic
 
-1. Test the module logic by running one the following 2 options:
-    1. from the `./plugins/modules/syncope_change_user_status`:
-       ```sh
-       python -m syncope_change_user_status args.json
-       ```
-       > `-m [MODULE_NAME]`:
-       >
-       > the name of the module must be equals to the name 
-       > of the `plugins/modules/syncope_change_user_status` folder 
-     
-    2. with Playbook:
-       ```sh
-       ansible-playbook -M . ./playbook_conf.yml
-       ```
- 
-1. Install [Mazer CLI](https://galaxy.ansible.com/docs/mazer/install.html#latest-stable-release)
-    ```sh
-    pip3 install mazer
-    ```
+  1. From the base directory execute the unit test:
+      ```sh
+         python -m pytest tests/
+        ```
+  1. Make sure to edit in a proper way the following conf files:
+       `./plugins/modules/args.json`
+       `./tests/integration/targets/syncope_user_handler/tasks/main.yml`
 
-1. Edit `galaxy.yml` properly and use `mazer` to build and publish the collection
-    ```sh
-    ~/.local/bin/mazer build
-    
-    ~/.local/bin/mazer publish --api-key=SECRET ./releases/my_namespace-syncope-1.0.0.tar.gz
-    ```
+  1. Test the module logic by running one of the following 2 options:
+      1. Providing a json file:
+         from the `./plugins/modules/` directory run
+         ```sh
+         python -m syncope_user_handler args.json
+         ```
+         > `-m [MODULE_NAME]`:
+         >
+         > the name of the module must be equals to the name
+         > of the `plugins/modules/syncope_user_handler` class
+
+      2. With Playbook:
+         from the base directory:
+         ```sh
+         ansible-test integration
+         ```
+         > executing ansible test requires the collection be in a specific path:
+         >
+         > `/ansible_collections/{namespace}/SyncopeAnsible/`
+
+
+  ## Pushing a new version
+  1. Build the collection artifact: ansible-galaxy collection build
+
+  1. Publish the collection artifact: ansible-galaxy collection publish ./geerlingguy-php_roles-1.2.3.tar.gz --api-key=[key goes here]
+

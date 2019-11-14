@@ -12,5 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Debug test.
-  debug: msg="Testing 1, 2, 3."
+---
+- name: run syncope_user_handler module
+  syncope_user_handler:
+    action: "change status"
+    adminUser: "admin"
+    adminPwd: "password"
+    serverName: "https://syncope-vm.apache.org"
+    syncopeUser: "c9b2dec2-00a7-4855-97c0-d854842b4b24"
+    changeStatusOnSyncope: "true"
+    newStatus: "REACTIVATE" # REACTIVATE, ACTIVATE, SUSPEND
+  register: results
+- name: syncope_user_handler result message
+  debug:
+    msg: '{{ results }}'

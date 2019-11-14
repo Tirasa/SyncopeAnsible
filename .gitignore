@@ -1,3 +1,6 @@
 releases/*
 __pycache__
 .idea
+plugins/modules/__pycache__
+tests/unit/plugins/modules/__pycache__
+

@@ -18,6 +18,7 @@ version: "1.0.0"
 readme: "README.md"
 authors:
   - "Matteo Alessandroni"
+  - "Federico Palmitesta"
 dependencies:
 license:
   - "Apache License, version 2.0"

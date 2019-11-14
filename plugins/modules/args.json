@@ -1,6 +1,6 @@
 {
   "ANSIBLE_MODULE_ARGS": {
-    "name": "",
+    "action": "change status",
     "adminUser": "admin",
     "adminPwd": "password",
     "serverName": "https://syncope-vm.apache.org",
