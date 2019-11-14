@@ -36,5 +36,5 @@
   ## Pushing a new version
   1. Build the collection artifact: ansible-galaxy collection build
 
-  1. Publish the collection artifact: ansible-galaxy collection publish ./geerlingguy-php_roles-1.2.3.tar.gz --api-key=[key goes here]
+  1. Publish the collection artifact: ansible-galaxy collection publish ./tirasa-syncope-1.0.0.tar.gz --api-key=[key goes here]
 
