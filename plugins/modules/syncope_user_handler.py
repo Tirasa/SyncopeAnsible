@@ -13,6 +13,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 ANSIBLE_METADATA = {
     'metadata_version': '1.0',
@@ -21,56 +25,65 @@ ANSIBLE_METADATA = {
 }
 
 DOCUMENTATION = '''
----
-modules: Syncope change user status
-short_description: Module change status of a user on Apache Syncope
-version_added: "2.4"
-description:
-    - "Module change status of a user on Apache Syncope"
-options:
-    action:
-        description:
-            - This is the message to send to the modules. 
-              If passing 'change status' the module will change the user status.
-        required: true
-    adminUser:
-        description:
-            - Username of the Admin User to login to Syncope
-        required: true
-    adminPwd:
-        description:
-            - Password of the Admin User to login to Syncope
-        required: true
-    serverName:
-        description:
-             - Domain url of the Syncope instance
-        required: true
-    syncopeUser:
-            description:
-                 - Key of the user on Syncope whose status will be updated
-            required: true
-    changeStatusOnSyncope:
-            description:
-                 - In case the status update must be executed on Syncope too ('true') or
-                   only to the resources linked to the user, if any ('false')
-            required: true
-    newStatus:
-            description:
-                 - Value of the new status (REACTIVATE | ACTIVATE | SUSPEND)
-            required: true
-extends_documentation_fragment:
-authors:
-    - Matteo Alessandroni (@mat-ale)
-    - Federico Palmitesta (@FedericoPalmitesta)
-    - Marco Di Sabatino Di Diodoro (@mdisabatino)
-    - Francesco Chicchiriccò (@ilgrosso)
 
+module: syncope_user_handler
+short_description: Handle user on Apache Syncope
+version_added: '2.4'
+description:
+    - Module handle user on Apache Syncope.
+
+author: Tirasa Ansible Team (@mat-ale) (@FedericoPalmitesta) (@mdisabatino) (@ilgrosso)
+
+options:
+
+    action:
+        required: true
+        type: str
+        description:
+        - This is the message to send to the modules.
+        choices: ['change status']
+
+    adminUser:
+        required: true
+        type: str
+        description:
+        - Username of the Admin User to login to Syncope
+
+    adminPwd:
+        required: true
+        type: str
+        description:
+        - Password of the Admin User to login to Syncope
+
+    serverName:
+        required: true
+        type: str
+        description:
+        - Domain url of the Syncope instance
+
+    syncopeUser:
+        required: true
+        type: str
+        description:
+        - Key of the user on Syncope whose status will be updated
+
+    changeStatusOnSyncope:
+        required: true
+        type: str
+        description:
+        - In case the status update must be executed on Syncope too ('true') or only to the resources, if any ('false')
+
+    newStatus:
+        required: true
+        type: str
+        description:
+        - Value of the new status
+        choices: ['SUSPEND', 'REACTIVATE', 'ACTIVATE']
 '''
 
-EXAMPLES = '''
-# Suspend user
+EXAMPLES = """
 - name: Suspend user
-  syncope_change_user_status:
+  syncope_user_handler:
     "action": "change status"
     "adminUser": "admin"
     "adminPwd": "password"
@@ -78,9 +91,9 @@ EXAMPLES = '''
     "syncopeUser": "c9b2dec2-00a7-4855-97c0-d854842b4b24"
     "changeStatusOnSyncope": "true"
     "newStatus": "SUSPEND"
-# Reactivate user
+
 - name: Reactivate user
-  syncope_change_user_status:
+  syncope_user_handler:
     "action": "change status"
     "adminUser": "admin"
     "adminPwd": "password"
@@ -88,9 +101,9 @@ EXAMPLES = '''
     "syncopeUser": "c9b2dec2-00a7-4855-97c0-d854842b4b24"
     "changeStatusOnSyncope": "true"
     "newStatus": "REACTIVATE"
-# Activate user
+
 - name: Activate user
-  syncope_change_user_status:
+  syncope_user_handler:
     "action": "change status"
     "adminUser": "admin"
     "adminPwd": "password"
@@ -98,7 +111,7 @@ EXAMPLES = '''
     "syncopeUser": "c9b2dec2-00a7-4855-97c0-d854842b4b24"
     "changeStatusOnSyncope": "true"
     "newStatus": "ACTIVATE"
-'''
+"""
 
 RETURN = '''
 changed:
@@ -111,10 +124,12 @@ message:
     returned: always
 '''
 
-import requests
-
-# Custom libraries
-from ansible.module_utils.basic import *
+from ansible.module_utils.basic import json, AnsibleModule
+try:
+    import requests
+    HAS_REQUESTS = True
+except ImportError:
+    HAS_REQUESTS = False
 
 
 class SyncopeUserHandler(object):
@@ -186,6 +201,9 @@ class SyncopeUserHandler(object):
         # during the execution of the modules, if there is an exception or a
         # conditional state that effectively causes a failure, run
         # AnsibleModule.fail_json() to pass in the message and the result
+        if(not HAS_REQUESTS):
+            self.module.fail_json(msg='Please install requests module')
+
         if self.module.params['action'] == 'change status':
             result = self.change_user_status_rest_call()
             if result['changed']:

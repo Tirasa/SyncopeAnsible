@@ -21,7 +21,7 @@
     serverName: "https://syncope-vm.apache.org"
     syncopeUser: "c9b2dec2-00a7-4855-97c0-d854842b4b24"
     changeStatusOnSyncope: "true"
-    newStatus: "REACTIVATE" # REACTIVATE, ACTIVATE, SUSPEND
+    newStatus: "SUSPEND" # REACTIVATE, ACTIVATE, SUSPEND
   register: results
 - name: syncope_user_handler result message
   debug:
