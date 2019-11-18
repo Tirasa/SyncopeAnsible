@@ -1,5 +1,3 @@
-  # README.md
-
   # Ansible Syncope Collection
 
   ## Test module logic
@@ -31,10 +29,3 @@
          > executing ansible test requires the collection be in a specific path:
          >
          > `/ansible_collections/{namespace}/SyncopeAnsible/`
-
-
-  ## Pushing a new version
-  1. Build the collection artifact: ansible-galaxy collection build
-
-  1. Publish the collection artifact: ansible-galaxy collection publish ./tirasa-syncope-1.0.0.tar.gz --api-key=[key goes here]
-
